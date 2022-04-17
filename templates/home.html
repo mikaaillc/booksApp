@@ -32,6 +32,8 @@
           <option value="2">Kiralandı</option>
           
         </select>
+
+        <h3 id="sum">Toplam Kitap Sayısı</h3>
     </div>
     </div>
 
@@ -70,7 +72,7 @@
               bookdata += '<td>' + value.status + '</td>';
               bookdata += '<td>' + value.numberOfBook + '</td>';
               bookdata += '<tr>';
-                value.sum_books.numberOfBook__sum 
+                
             });
             
             $('#tablebook').append(bookdata);
@@ -83,6 +85,9 @@
 
   $(document).ready(function () {
     $.getJSON("/books", function (data) {
+      var total=''
+      total = '<h3>'+data[0].sum_books.numberOfBook__sum+'</h3>';
+      $('#sum').append(total);
       var bookdata = '';
       $.each(data, function (key, value) {
         if (value.stock == 1) {
@@ -96,6 +101,7 @@
         bookdata += '<td>' + value.status + '</td>';
         bookdata += '<td>' + value.numberOfBook + '</td>';
         bookdata += '<tr>';
+        
       });
       $('#tablebook').append(bookdata);
       
