@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <h1>Login</h1> 
+    <form id="idForm" action="/api/login" method="post" target="_blank">{% csrf_token %}
+      Email <input type="text" name="username" required/><br>
+      Password <input type="text" name="password" required/><br>
+      <input type="hidden" name="req" value="login">
+      <input type="submit" id="submit" value="Create"/>
+    </form>
+  </body>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script>
+$("#idForm").submit(function(e) {
+
+
+    var form = $(this);
+    var url = form.attr('action');
+
+    $.ajax({
+           type: "POST",
+           url: url,
+           data: form.serialize(), 
+           success: function(data)
+           {
+              alert(
+                ' Giriş başarılı.'
+              )
+              $(location).attr('href', '/home')
+           }
+         });
+
+    e.preventDefault();
+});
+</script>
+</html>

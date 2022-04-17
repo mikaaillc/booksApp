@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Books APP</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We"
+    crossorigin="anonymous"
+  />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="table-responsive">
+        <h1>Books APP</h1>
+        <br />
+        <table class="table table-bordered table-striped" id="tablebook">
+          <tr >
+            <th scope="col">id</th>
+            <th scope="col">Kitap İsmi</th>
+            <th scope="col">Durum</th>
+            <th scope="col">Adet</th>
+                  </tr>
+        </table>
+        <select id="comboA" onchange="getComboA(this)">
+          <option value="">Durum Seçiniz</option>
+          <option value="0">Mevcut</option>
+          <option value="1">Satıldı</option>
+          <option value="2">Kiralandı</option>
+          
+        </select>
+    </div>
+    </div>
+
+    
+     
+  </body>
+
+  
+  
+</html>
+
+
+<script>
+  function getComboA(selectObject) {
+    var value = selectObject.value;
+    $.ajax({
+      type: "GET",
+      url: "/books/"+value,
+      success: function (data) {
+        var tablebook = document.getElementById("tablebook");
+        var rowCount = tablebook.rows.length;
+        for (var x=rowCount-1; x>0; x--) {
+          tablebook.deleteRow(x);
+        }
+        $(document).ready(function () {
+          var bookdata = '';
+            $.each(data, function (key, value) {
+              if (value.stock == 1) {
+                bookdata += '<tr style="background-color:#39A851":>';
+              }
+              else {
+                bookdata += '<tr style="background-color:#C75151":>';
+              }
+              bookdata += '<td>' + value.pk + '</td>';
+              bookdata += '<td>' + value.name + '</td>';
+              bookdata += '<td>' + value.status + '</td>';
+              bookdata += '<td>' + value.numberOfBook + '</td>';
+              bookdata += '<tr>';
+                value.sum_books.numberOfBook__sum 
+            });
+            
+            $('#tablebook').append(bookdata);
+          
+            
+        });
+      }
+    });
+  }
+
+  $(document).ready(function () {
+    $.getJSON("/books", function (data) {
+      var bookdata = '';
+      $.each(data, function (key, value) {
+        if (value.stock == 1) {
+          bookdata += '<tr style="background-color:#39A851":>';
+        }
+        else {
+          bookdata += '<tr style="background-color:#C75151":>';
+        }
+        bookdata += '<td>' + value.pk + '</td>';
+        bookdata += '<td>' + value.name + '</td>';
+        bookdata += '<td>' + value.status + '</td>';
+        bookdata += '<td>' + value.numberOfBook + '</td>';
+        bookdata += '<tr>';
+      });
+      $('#tablebook').append(bookdata);
+      
+    });
+
+  });
+</script>
+
+
