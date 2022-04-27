@@ -4,3 +4,4 @@ Django İle CRUD İşlemleri
 - SQlite kullanıldı
 - Kitapların listelenmesi oluşturulması güncellenmesi ve silinebilmesi sağlandı.
 - Rest Freamwork kullanılanıldı.
+- Frontend de Html ve Bootstrap kullanıldı.
